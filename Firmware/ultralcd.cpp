@@ -2570,6 +2570,7 @@ void lcd_generic_preheat_menu()
         MENU_ITEM_SUBMENU_P(PSTR("HIPS -  " STRINGIFY(HIPS_PREHEAT_HOTEND_TEMP) "/" STRINGIFY(HIPS_PREHEAT_HPB_TEMP)),mFilamentItem_HIPS);
         MENU_ITEM_SUBMENU_P(PSTR("PP   -  " STRINGIFY(PP_PREHEAT_HOTEND_TEMP) "/" STRINGIFY(PP_PREHEAT_HPB_TEMP)),mFilamentItem_PP);
         MENU_ITEM_SUBMENU_P(PSTR("FLEX -  " STRINGIFY(FLEX_PREHEAT_HOTEND_TEMP) "/" STRINGIFY(FLEX_PREHEAT_HPB_TEMP)),mFilamentItem_FLEX);
+        MENU_ITEM_FUNCTION_P(PSTR("nozzle -  " STRINGIFY(FARM_PREHEAT_HOTEND_TEMP) "/0"), mFilamentItem_farm_nozzle);
     }
     if (!eeprom_read_byte((uint8_t*)EEPROM_WIZARD_ACTIVE) && eFilamentAction == FilamentAction::Preheat) MENU_ITEM_FUNCTION_P(_T(MSG_COOLDOWN), lcd_cooldown);
     MENU_END();
@@ -6385,10 +6386,15 @@ void unload_filament()
     raise_z_above(MIN_Z_FOR_UNLOAD);
 
 	//		extr_unload2();
-
+  current_position[E_AXIS] += 3;
+  plan_buffer_line_curposXYZE(500 / 60, active_extruder);
+  st_synchronize();
 	current_position[E_AXIS] -= 45;
 	plan_buffer_line_curposXYZE(5200 / 60, active_extruder);
 	st_synchronize();
+  current_position[E_AXIS] += 10;
+  plan_buffer_line_curposXYZE(500 / 60, active_extruder);
+  st_synchronize();
 	current_position[E_AXIS] -= 15;
 	plan_buffer_line_curposXYZE(1000 / 60, active_extruder);
 	st_synchronize();

@@ -631,7 +631,7 @@ bool mmu_get_response(uint8_t move)
 				{ 
 					printf_P(PSTR("Unloading finished 2\n"));
 					disable_e0(); //turn off E-stepper to prevent overheating and alow filament pull-out if necessary
-					delay_keep_alive(MMU_LOAD_TIME_MS);
+					delay_keep_alive(MMU_LOAD_TIME_MS*10);
 					move = MMU_LOAD_MOVE;
 					get_response_print_info(move);
 				}
@@ -1445,9 +1445,9 @@ bFilamentAction=false;                            // NOT in "mmu_fil_eject_menu(
 //! @retval false Doesn't fit
 static bool can_load()
 {
-    current_position[E_AXIS] += 60;
+    current_position[E_AXIS] += 50;
     plan_buffer_line_curposXYZE(MMU_LOAD_FEEDRATE, active_extruder);
-    current_position[E_AXIS] -= 52;
+    current_position[E_AXIS] -= 42;
     plan_buffer_line_curposXYZE(MMU_LOAD_FEEDRATE, active_extruder);
     st_synchronize();
 

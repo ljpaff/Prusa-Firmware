@@ -43,7 +43,7 @@
 
 // Steps per unit {X,Y,Z,E}
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,140}
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,280}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,490}
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {100,100,3200/8,560}
 
 // Endstop inverting
@@ -210,7 +210,7 @@
 
 #define TMC2130_USTEPS_XY   16        // microstep resolution for XY axes
 #define TMC2130_USTEPS_Z    16        // microstep resolution for Z axis
-#define TMC2130_USTEPS_E    32        // microstep resolution for E axis
+#define TMC2130_USTEPS_E    16        // microstep resolution for E axis
 #define TMC2130_INTPOL_XY   1         // extrapolate 256 for XY axes
 #define TMC2130_INTPOL_Z    1         // extrapolate 256 for Z axis
 #define TMC2130_INTPOL_E    1         // extrapolate 256 for E axis
@@ -265,8 +265,8 @@
 #define TMC2130_SG_THRS_HOME {3, 3, TMC2130_SG_THRS_Z, TMC2130_SG_THRS_E}
 
 //new settings is possible for vsense = 1, running current value > 31 set vsense to zero and shift both currents by 1 bit right (Z axis only)
-#define TMC2130_CURRENTS_H {16, 20, 35, 30}  // default holding currents for all axes
-#define TMC2130_CURRENTS_R {16, 20, 35, 30}  // default running currents for all axes
+#define TMC2130_CURRENTS_H {16, 20, 35, 26}  // default holding currents for all axes
+#define TMC2130_CURRENTS_R {16, 20, 35, 26}  // default running currents for all axes
 #define TMC2130_CURRENTS_R_HOME {8, 10, 20, 18}  // homing running currents for all axes
 // #define TMC2130_UNLOAD_CURRENT_R 12			 // lower current for M600 to protect filament sensor - Unused
 
@@ -489,7 +489,7 @@
  PREHEAT SETTINGS
  *------------------------------------*/
 
-#define FARM_PREHEAT_HOTEND_TEMP 250
+#define FARM_PREHEAT_HOTEND_TEMP 200
 #define FARM_PREHEAT_HPB_TEMP 80
 
 #define PLA_PREHEAT_HOTEND_TEMP 215
@@ -553,13 +553,14 @@
 // 148 is E3D Pt100 with 4k7 pullup and no PT100 Amplifier on a MiniRambo 1.3a
 // 247 is Pt100 with 4k7 pullup and PT100 Amplifier
 // 110 is Pt100 with 1k pullup (non standard)
+// 800 is Slicer Engineering Thermistor
 
 #if defined(E3D_PT100_EXTRUDER_WITH_AMP)
 #define TEMP_SENSOR_0 247
 #elif defined(E3D_PT100_EXTRUDER_NO_AMP)
 #define TEMP_SENSOR_0 148
 #else
-#define TEMP_SENSOR_0 5
+#define TEMP_SENSOR_0 800
 #endif
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
